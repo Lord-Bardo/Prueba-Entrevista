@@ -41,15 +41,28 @@ public class FileSystem {
     private boolean existeDir(String dirName){
         return dirActual.getSubDirectorios().stream().anyMatch(x->x.getRutaRelativa().equals(dirName));
     }
+    private boolean existeFile(String fileName){
+        return dirActual.getArchivos().stream().anyMatch(x->x.equals(fileName));
+    }
 
     public void pwd(){
+
         System.out.println(posicion);
     }
+
     public void mkdir(String dirName){
-        this.dirActual.addDir(dirName,this.dirActual);
+        if(existeDir(dirName)){
+            System.out.println("Ya existe este directorio");
+        }
+        else{
+            this.dirActual.addDir(dirName,this.dirActual);
+        }
 
     }
     public void touch(String fileName){
+        if(existeFile(fileName)){
+            System.out.println("Ya existe este archivo");
+        }
         this.dirActual.addFile(fileName);
     }
 
